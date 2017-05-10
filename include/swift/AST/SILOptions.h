@@ -19,6 +19,7 @@
 #define SWIFT_AST_SILOPTIONS_H
 
 #include "swift/Basic/Sanitizers.h"
+#include "swift/Basic/OptionSet.h"
 #include "llvm/ADT/Hashing.h"
 #include "llvm/ADT/StringRef.h"
 #include <string>
@@ -138,7 +139,7 @@ public:
 #endif
 
   /// Indicates which sanitizer is turned on.
-  SanitizerKind Sanitize : 2;
+  OptionSet<SanitizerKind> Sanitizers;
 
   /// Emit compile-time diagnostics when the law of exclusivity is violated.
   bool EnforceExclusivityStatic = false;
@@ -153,7 +154,7 @@ public:
   /// Enable the mandatory semantic arc optimizer.
   bool EnableMandatorySemanticARCOpts = false;
 
-  SILOptions() : Sanitize(SanitizerKind::None) {}
+  SILOptions() {}
 
   /// Return a hash code of any components from these options that should
   /// contribute to a Swift Bridging PCH hash.

@@ -14,6 +14,7 @@
 #define SWIFT_OPTIONS_SANITIZER_OPTIONS_H
 
 #include "swift/Basic/Sanitizers.h"
+#include "swift/Basic/OptionSet.h"
 #include "llvm/ADT/Triple.h"
 #include "llvm/Option/Arg.h"
 // FIXME: This include is just for llvm::SanitizerCoverageOptions. We should
@@ -27,14 +28,15 @@ class DiagnosticEngine;
 ///
 /// \param Diag If non null, the argument is used to diagnose invalid values.
 /// \return Returns a SanitizerKind.
-SanitizerKind parseSanitizerArgValues(const llvm::opt::Arg *A,
+OptionSet<SanitizerKind> parseSanitizerArgValues(const llvm::opt::Arg *A,
                                       const llvm::Triple &Triple,
                                       DiagnosticEngine &Diag);
 
 /// \brief Parses a -sanitize-coverage= argument's value.
 llvm::SanitizerCoverageOptions
-parseSanitizerCoverageArgValue(const llvm::opt::Arg *A,
+    parseSanitizerCoverageArgValue(const llvm::opt::Arg *A,
                                const llvm::Triple &Triple,
-                               DiagnosticEngine &Diag, SanitizerKind sanitizer);
+                               DiagnosticEngine &Diag,
+                               OptionSet<SanitizerKind> sanitizers);
 }
 #endif // SWIFT_OPTIONS_SANITIZER_OPTIONS_H
